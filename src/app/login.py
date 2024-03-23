@@ -1,43 +1,55 @@
-from flask import render_template, request, redirect, url_for, flash, session
-from werkzeug.security import generate_password_hash
-
-from app import app, USERS_DATA
-from app.data import load_data, save_data, authenticate, register_user, get_user
+from app import app
+from app.data import authenticate, register_user, get_user
+from flask import request, session, jsonify
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/register', methods=['POST'])
 def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        id = request.form['id']
+    username = request.form['username']
+    password = request.form['password']
+    id = request.form['id']
 
-        is_regist, text = register_user(username, id, password)
+    is_regist, text = register_user(username, id, password)
 
-        if is_regist:
-            flash(text, 'success')
-            return redirect(url_for('login'))
-        
-        flash(text, 'error')
-        return redirect(url_for('signup'))
-    return render_template('signup.html')
+    if is_regist:
+        response = {
+            "result": "ok",
+            "redirect": "/login"
+        }
+        return jsonify(response)
 
-@app.route('/login', methods=['GET', 'POST'])
+    response = {
+        "result": "fail"
+    }
+    return jsonify(response)
+
+
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        id = request.form['id']
-        password = request.form['password']
-        if authenticate(id, password):
-            session['user_id'] = get_user(id)['id']
-            flash('로그인 되었습니다.', 'success')
-            return redirect(url_for('index'))
-        else:
-            flash('사용자 이름 또는 비밀번호가 올바르지 않습니다.', 'error')
-            return redirect(url_for('login'))
-    return render_template('login.html')
+    id = request.form['id']
+    password = request.form['password']
+    if authenticate(id, password):
+        session['user_id'] = get_user(id)['id']
+        print(session)
+        response = {
+            "result": "ok",
+            "session": session,
+            "redirect": "/"
+        }
+        return jsonify(response)
+    else:
+        print("err")
+        response = {
+            "result": "fail"
+        }
+        return jsonify(response)
+
 
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
-    flash('로그아웃 되었습니다.', 'info')
-    return redirect(url_for('index'))
+    response = {
+        "result": "ok",
+        "redirect": "/"
+    }
+    return jsonify(response)

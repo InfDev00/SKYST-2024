@@ -1,43 +1,8 @@
 {
-    "aaa": {
-        "username": "aaa",
-        "id": "aaa",
-        "password": "aaa"
-    },
-    "a": {
-        "username": "a",
-        "id": "a",
-        "password": "a"
-    },
-    "qqq": {
-        "username": "qqq",
-        "id": "qqq",
-        "password": "qqq"
-    },
-    "abc": {
-        "username": "abc",
-        "id": "abc",
-        "password": "abc"
-    },
-    "ddd": {
-        "username": "ddd",
-        "id": "ddd",
-        "password": "ddd"
-    },
-    "wsx": {
-        "username": "qaz",
-        "id": "wsx",
-        "password": "edc"
-    },
-    "112": {
-        "username": "112",
-        "id": "112",
-        "password": "112"
-    },
-    "mmd": {
-        "username": "player",
-        "id": "mmd",
-        "password": "mmd",
+    "yhsphd": {
+        "username": "\uc724\ud615\uc11d",
+        "id": "yhsphd",
+        "password": "asdf",
         "friends": [],
         "lover": null
     }
