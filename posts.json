@@ -6,6 +6,13 @@
             "content": "\ub0b4\uc6a9",
             "date_posted": "2024-03-23T08:17:59.336933",
             "comments": []
+        },
+        {
+            "id": 2,
+            "title": "\ub85c\ub7ec\u3157\ud5c8\u3157\ud750\u3157\u3161\u3153",
+            "content": "\u3157",
+            "date_posted": "2024-03-23T08:31:56.806222",
+            "comments": []
         }
     ],
     "comments": [
@@ -14,6 +21,18 @@
             "post_id": 1,
             "content": "\u3147\u3147\u3147\u3147",
             "date_commented": "2024-03-23T08:20:06.280958"
+        },
+        {
+            "id": 2,
+            "post_id": 1,
+            "content": "\u314e\u3140\u3147",
+            "date_commented": "2024-03-23T08:32:03.523934"
+        },
+        {
+            "id": 3,
+            "post_id": 2,
+            "content": "\u3147\u314e\u3140",
+            "date_commented": "2024-03-23T08:32:14.713802"
         }
     ]
 }
