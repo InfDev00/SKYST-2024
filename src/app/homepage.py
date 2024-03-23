@@ -1,18 +1,20 @@
-from flask import render_template, session, redirect, url_for
-
-from app import app, socketio, POSTS_DATA, USERS_DATA
-from app.data import load_data, get_posts, get_user
+from app import app
+from app.data import get_posts
+from flask import session, jsonify
 
 
 @app.route('/')
 def index():
     if 'user_id' in session:
         posts = get_posts(session['user_id'])
-        return render_template('index.html', username=get_user(session['user_id'])['username'], posts=posts)
+        # return render_template('index.html', username=get_user(session['user_id'])['username'], posts=posts)
+        response = {
+            "result": "ok"
+        }
+        return jsonify(response)
     else:
-        return redirect(url_for('login'))
-
-@socketio.on('request_json')
-def send_json():
-    data = load_data(POSTS_DATA)
-    socketio.emit('json_data', data)
+        response = {
+            "result": "fail",
+            "redirect": "/login"
+        }
+        return jsonify(response)
