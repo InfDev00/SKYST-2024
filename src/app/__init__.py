@@ -7,4 +7,4 @@ app = Flask(__name__)
 JSON_FILE = "posts.json"
 socketio = SocketIO(app)
 
-from app import login, gallery
+from app import login, gallery,socket
