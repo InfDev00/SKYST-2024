@@ -5,7 +5,12 @@ from flask import request, session, jsonify
 
 @app.route('/api/posts')
 def all_posts():
-    posts = get_posts(session['user_id'])
+    posts = []
+    user_bands = get_user(session['user_id'])['bands']
+    for band in user_bands:
+        for id in band['member']:
+            posts.extend(get_posts(id))
+    posts = list(set(posts))
     return jsonify({
         'result': "ok",
         'session': session,

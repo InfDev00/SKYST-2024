@@ -105,7 +105,7 @@ def register_user(username, id, password):
         "username": username,
         "id": id,
         "password": password,  # 비밀번호 저장 전에 해싱 또는 암호화 필요
-        "friends": [],
+        "bands": [],
         "lover": None
     }
     data[id] = new_user
@@ -156,6 +156,8 @@ def create_band(bandname, user_id, comment):
         "comment": comment,
         "member": [user['id'], lover['id']]
     }
+    user['bands'].append(new_band)
+    lover['bands'].append(new_band)
     data.append(new_band)
     return new_band
 
@@ -178,4 +180,11 @@ def enter_band(band_id, user_id):
     band["member"].append(user)
     band["member"].append(lover)
 
+    user['bands'].append(band)
+    lover['bands'].append(band)
+
     return band
+
+def get_band_id(band_id):
+    band = get_band(band_id)
+    return band["member"]
