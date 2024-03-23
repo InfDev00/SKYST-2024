@@ -53,12 +53,12 @@ def add_comment(username, post_id, content):
     return comment
 
 
-def get_posts(id):
+def get_posts(user_id):
     data = load_data(POSTS_DATA)
 
     user_posts = []
     for value in data["posts"]:
-        if value["user_id"] == id:
+        if value["user_id"] == user_id:
             user_posts.append(value)
 
     return user_posts
@@ -93,19 +93,14 @@ def register_user(username, id, password):
     data = load_data(USERS_DATA)
     # 사용자 정보 확인
     for key in data.keys():
-        if data[key]["username"] == username:
-            return False, "이미 사용 중인 사용자 이름입니다."
         if data[key]["id"] == id:
             return False, "이미 사용 중인 아이디입니다."
-        if data[key]["password"] == password:
-            return False, "이미 사용 중인 비밀번호입니다."
 
     # 사용자 정보 저장
     new_user = {
         "username": username,
         "id": id,
         "password": password,  # 비밀번호 저장 전에 해싱 또는 암호화 필요
-        "friends": [],
         "lover": None
     }
     data[id] = new_user
@@ -133,15 +128,15 @@ def add_lover(id, lover_id):
     return False
 
 
-def add_friend(id, friend_id):
-    user = get_user(id)
-    friend = get_user(friend_id)
+# def add_friend(id, friend_id):
+#     user = get_user(id)
+#     friend = get_user(friend_id)
 
-    if not user or not friend:
-        return False  # error
+#     if not user or not friend:
+#         return False  # error
 
-    user['friends'].append(friend)
-    return True
+#     user['friends'].append(friend)
+#     return True
 
 
 #band function
