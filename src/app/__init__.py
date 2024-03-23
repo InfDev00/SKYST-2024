@@ -11,4 +11,4 @@ USERS_DATA = 'users.json'
 BANDS_DATA = 'bands.json'
 
 
-from app import login, gallery, homepage, mypage
+from app import login, gallery, homepage, mypage, band
