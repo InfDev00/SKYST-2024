@@ -8,4 +8,5 @@ JSON_FILE = "posts.json"
 USERS_FILE = 'users.json'
 socketio = SocketIO(app)
 
+
 from app import login, gallery, homepage
