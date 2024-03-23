@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for
 
-from app import app, socketio, JSON_FILE, USERS_FILE
+from app import app, socketio, POSTS_DATA, USERS_DATA
 from app.data import load_data, get_posts
 
 
@@ -14,5 +14,5 @@ def index():
 
 @socketio.on('request_json')
 def send_json():
-    data = load_data(JSON_FILE)
+    data = load_data(POSTS_DATA)
     socketio.emit('json_data', data)

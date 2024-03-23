@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 
 from app import app
-from app.data import get_comments, get_post, get_posts, add_comment, create_post, load_data
+from app.data import get_comments, get_post, add_comment, create_post
 
 
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])

@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_socketio import SocketIO
+import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
-JSON_FILE = "posts.json"
-USERS_FILE = 'users.json'
+app.config['SECRET_KEY'] =  os.urandom(24)
+POSTS_DATA = "posts.json"
+USERS_DATA = 'users.json'
 socketio = SocketIO(app)
 
 
