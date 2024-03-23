@@ -4,12 +4,6 @@ from app import app
 from app.data import get_comments, get_post, get_posts, add_comment, create_post, load_data
 
 
-
-@app.route('/')
-def index():
-    posts = get_posts()
-    return render_template('index.html', posts=posts)
-
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post(post_id):
     post = get_post(post_id)
