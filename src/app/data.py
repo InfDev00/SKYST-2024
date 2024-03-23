@@ -1,24 +1,27 @@
 import json
 from datetime import datetime
+from werkzeug.security import check_password_hash
 
-from app import JSON_FILE
+from app import JSON_FILE, USERS_FILE
 
 
-def load_data():
+def load_data(key):
     try:
-        with open(JSON_FILE, 'r') as file:
+        with open(key, 'r') as file:
             data = json.load(file)
     except FileNotFoundError:
-        data = {"posts": [], "comments": []}
+        if key==JSON_FILE:
+            data = {"posts": [], "comments": []}
+        elif key==USERS_FILE:
+            data = {}
     return data
 
-def save_data(data):
-    with open(JSON_FILE, 'w') as file:
+def save_data(data, key):
+    with open(key, 'w') as file:
         json.dump(data, file, indent=4)
 
 def register_user(username, id, password):
     data = load_data()
-
     #사용자 정보 확인
     for user in data["users"]:
         if user["username"] == username:
@@ -52,11 +55,12 @@ def create_post(username, title, content):
         "comments": []
     }
     data["posts"].append(new_post)
-    save_data(data)
+    save_data(data,JSON_FILE)
     return new_post
 
 def add_comment(username, post_id, content):
-    data = load_data()
+    data = load_data(JSON_FILE)
+
     comment = {
         "num": len(data["comments"]) + 1,
         "username": username,
@@ -65,24 +69,32 @@ def add_comment(username, post_id, content):
         "date_commented": datetime.utcnow().isoformat()
     }
     data["comments"].append(comment)
-    save_data(data)
+    save_data(data,JSON_FILE)
     return comment
 
 def get_posts():
-    data = load_data()
+    data = load_data(JSON_FILE)
     return data["posts"]
 
 def get_post(post_id):
-    data = load_data()
+    data = load_data(JSON_FILE)
     for post in data["posts"]:
         if post["id"] == post_id:
             return post
     return None
 
 def get_comments(post_id):
-    data = load_data()
+    data = load_data(JSON_FILE)
     comments = []
     for comment in data["comments"]:
         if comment["post_id"] == post_id:
             comments.append(comment)
     return comments
+
+
+# login 관련 함수
+def authenticate(username, password):
+    users = load_data(USERS_FILE)
+    if username in users and check_password_hash(users[username], password):
+        return True
+    return False
