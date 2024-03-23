@@ -17,9 +17,8 @@ def all_posts():
 def post(post_id):
     post = get_post(post_id)
     if request.method == 'POST':
-        title = request.form['title']
         content = request.form['content']
-        add_comment(get_user(session['user_id'])['username'], post_id, title, content)
+        add_comment(get_user(session['user_id'])['username'], post_id, content)
         return jsonify({
             "result": "ok"
         })

@@ -38,14 +38,13 @@ def create_post(title, user_id, content):
     return new_post
 
 
-def add_comment(username, post_id, title, content):
+def add_comment(username, post_id, content):
     data = load_data(POSTS_DATA)
 
     comment = {
         "num": len(data["comments"]) + 1,
         "username": username,
         "post_id": post_id,
-        "title": title,
         "content": content,
         "date_commented": datetime.utcnow().isoformat()
     }
