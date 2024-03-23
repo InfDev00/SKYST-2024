@@ -3,7 +3,7 @@ from app.data import authenticate, register_user, get_user
 from flask import request, session, jsonify
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def signup():
     username = request.form['username']
     password = request.form['password']
@@ -24,7 +24,7 @@ def signup():
     return jsonify(response)
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     id = request.form['id']
     password = request.form['password']
@@ -45,7 +45,7 @@ def login():
         return jsonify(response)
 
 
-@app.route('/logout')
+@app.route('/api/logout')
 def logout():
     session.pop('user_id', None)
     response = {

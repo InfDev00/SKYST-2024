@@ -1,13 +1,13 @@
 from flask import Flask
-from flask_socketio import SocketIO
+from flask_cors import CORS
 import os
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] =  os.urandom(24)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 POSTS_DATA = "posts.json"
 USERS_DATA = 'users.json'
-socketio = SocketIO(app)
 
 
 from app import login, gallery, homepage, mypage
