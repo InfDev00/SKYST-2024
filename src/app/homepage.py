@@ -6,9 +6,9 @@ from app.data import load_data, get_posts, get_user
 
 @app.route('/')
 def index():
-    if 'id' in session:
-        posts = get_posts()
-        return render_template('index.html', username=get_user(session['id']), posts=posts)
+    if 'user_id' in session:
+        posts = get_posts(session['user_id'])
+        return render_template('index.html', username=get_user(session['user_id'])['username'], posts=posts)
     else:
         return redirect(url_for('login'))
 

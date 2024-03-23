@@ -1,38 +1,74 @@
 {
     "posts": [
         {
-            "id": 1,
-            "title": "\uc544\uc2f8\ub77c\ube44\uc544",
-            "content": "\ub0b4\uc6a9",
-            "date_posted": "2024-03-23T08:17:59.336933",
+            "post_id": 1,
+            "username": "qqq",
+            "user_id": "qqq",
+            "title": "sdaf",
+            "content": "sda",
+            "date_posted": "2024-03-23T12:50:56.674693",
             "comments": []
         },
         {
-            "id": 2,
-            "title": "\ub85c\ub7ec\u3157\ud5c8\u3157\ud750\u3157\u3161\u3153",
-            "content": "\u3157",
-            "date_posted": "2024-03-23T08:31:56.806222",
+            "post_id": 2,
+            "username": "qqq",
+            "user_id": "qqq",
+            "title": "sdaf",
+            "content": "sda",
+            "date_posted": "2024-03-23T12:52:43.762233",
+            "comments": []
+        },
+        {
+            "post_id": 3,
+            "username": "qqq",
+            "user_id": "qqq",
+            "title": "sdaf",
+            "content": "sda",
+            "date_posted": "2024-03-23T12:53:04.625697",
+            "comments": []
+        },
+        {
+            "post_id": 4,
+            "username": "qqq",
+            "user_id": "qqq",
+            "title": "sdaf",
+            "content": "sda",
+            "date_posted": "2024-03-23T12:55:48.010670",
+            "comments": []
+        },
+        {
+            "post_id": 5,
+            "username": "player",
+            "user_id": "mmd",
+            "title": "ddc",
+            "content": "gds",
+            "date_posted": "2024-03-23T13:26:03.836303",
+            "comments": []
+        },
+        {
+            "post_id": 6,
+            "username": "player",
+            "user_id": "mmd",
+            "title": "gg",
+            "content": "accd",
+            "date_posted": "2024-03-23T13:29:01.242232",
             "comments": []
         }
     ],
     "comments": [
         {
-            "id": 1,
-            "post_id": 1,
-            "content": "\u3147\u3147\u3147\u3147",
-            "date_commented": "2024-03-23T08:20:06.280958"
+            "num": 1,
+            "username": "player",
+            "post_id": 5,
+            "content": "aa",
+            "date_commented": "2024-03-23T13:28:49.035132"
         },
         {
-            "id": 2,
-            "post_id": 1,
-            "content": "\u314e\u3140\u3147",
-            "date_commented": "2024-03-23T08:32:03.523934"
-        },
-        {
-            "id": 3,
-            "post_id": 2,
-            "content": "\u3147\u314e\u3140",
-            "date_commented": "2024-03-23T08:32:14.713802"
+            "num": 2,
+            "username": "player",
+            "post_id": 6,
+            "content": "rr",
+            "date_commented": "2024-03-23T13:29:05.111697"
         }
     ]
 }

@@ -6,11 +6,11 @@ from app.data import load_data, save_data, authenticate, get_user
 
 @app.route('/mypage')
 def mypage():
-    if 'username' not in session:
+    if 'user_id' not in session:
         flash('로그인이 필요합니다.', 'error')
         return redirect(url_for('login'))
     
-    user = get_user(session['username'])
+    user = get_user(session['user_id'])
     if not user:
         flash('사용자 정보를 찾을 수 없습니다.', 'error')
         return redirect(url_for('login'))

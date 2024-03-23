@@ -1,10 +1,8 @@
 import json
 from datetime import datetime
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import POSTS_DATA, USERS_DATA
-
-
 
 
 # default function
@@ -25,7 +23,7 @@ def save_data(data, key):
 
 # gallery function
 def create_post(title, user_id, content):
-    data = load_data()
+    data = load_data(POSTS_DATA)
     new_post = {
         "post_id": len(data["posts"]) + 1,
         "username":get_user(user_id)['username'],
@@ -33,7 +31,6 @@ def create_post(title, user_id, content):
         "title": title,
         "content": content,
         "date_posted": datetime.utcnow().isoformat(),
-        "comments": []
     }
     data["posts"].append(new_post)
     save_data(data,POSTS_DATA)
@@ -53,14 +50,20 @@ def add_comment(username, post_id, content):
     save_data(data,POSTS_DATA)
     return comment
 
-def get_posts():
+def get_posts(id):
     data = load_data(POSTS_DATA)
-    return data["posts"]
+    
+    user_posts = []
+    for value in data["posts"]:
+            if value["user_id"] == id:
+                user_posts.append(value)
+    
+    return user_posts
 
 def get_post(post_id):
     data = load_data(POSTS_DATA)
     for post in data["posts"]:
-        if post["id"] == post_id:
+        if post["post_id"] == post_id:
             return post
     return None
 
@@ -76,8 +79,7 @@ def get_comments(post_id):
 # login function
 def authenticate(id, password):
     users = load_data(USERS_DATA)
-    username = get_user(id)['username']
-    if id in users: #and check_password_hash(users[id][username], password):
+    if id in users and password==users[id]["password"]:
         return True
     return False
 
@@ -96,7 +98,9 @@ def register_user(username, id, password):
     new_user = {
         "username": username,
         "id": id,
-        "password": password  # 비밀번호 저장 전에 해싱 또는 암호화 필요
+        "password": password, # 비밀번호 저장 전에 해싱 또는 암호화 필요
+        "friends" : [],
+        "lover": None
     }
     data[id] = new_user
     save_data(data, USERS_DATA)
@@ -106,3 +110,26 @@ def register_user(username, id, password):
 def get_user(id):
     users = load_data(USERS_DATA)
     return users.get(id)
+
+def add_lover(id, lover_id):
+    user = get_user(id)
+    lover = get_user(lover_id)
+
+    if not user or not lover:
+        return False # error
+    
+    if not user['lover'] and not lover['lover']:
+        user['lover'] = lover
+        lover['lover'] = user
+        return True
+    return False
+
+def add_friend(id, friend_id):
+    user = get_user(id)
+    friend = get_user(friend_id)
+
+    if not user or not friend:
+        return False # error
+    
+    user['friends'].append(friend)
+    return True

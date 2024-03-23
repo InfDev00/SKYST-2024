@@ -25,10 +25,10 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        id = request.form['ids']
+        id = request.form['id']
         password = request.form['password']
         if authenticate(id, password):
-            session['username'] = get_user(id)['username']
+            session['user_id'] = get_user(id)['id']
             flash('로그인 되었습니다.', 'success')
             return redirect(url_for('index'))
         else:
@@ -38,6 +38,6 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
+    session.pop('user_id', None)
     flash('로그아웃 되었습니다.', 'info')
     return redirect(url_for('index'))
