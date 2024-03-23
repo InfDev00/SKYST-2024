@@ -1,16 +1,22 @@
 from app import app
 from app.data import get_comments, get_post, add_comment, create_post, get_posts, get_user
 from flask import request, session, jsonify
-
+import random
 
 @app.route('/api/posts')
 def all_posts():
     posts = []
+    ids = []
     user_bands = get_user(session['user_id'])['bands']
     for band in user_bands:
         for id in band['member']:
-            posts.extend(get_posts(id))
-    posts = list(set(posts))
+            ids.append(id)
+    ids = list(set(ids))
+    sample_ids = random.sample(ids, k=len(ids)//2)
+
+    for id in sample_ids:
+        posts.extend(get_posts(id))
+
     return jsonify({
         'result': "ok",
         'session': session,
