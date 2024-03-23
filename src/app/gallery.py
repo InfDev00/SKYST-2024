@@ -1,8 +1,13 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 
 from app import app
 from app.data import get_comments, get_post, add_comment, create_post
 
+
+@app.route('/post')
+def all_posts():
+    id = session['id']
+    # 제작중
 
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post(post_id):

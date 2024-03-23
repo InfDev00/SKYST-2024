@@ -21,11 +21,12 @@ def save_data(data, key):
         json.dump(data, file, indent=4)
 
 # gallery function
-def create_post(username, title, content):
+def create_post(title, user_id, content):
     data = load_data()
     new_post = {
-        "num": len(data["posts"]) + 1,
-        "username":username,
+        "post_id": len(data["posts"]) + 1,
+        "username":get_user(user_id)['username'],
+        "user_id":user_id,
         "title": title,
         "content": content,
         "date_posted": datetime.utcnow().isoformat(),
@@ -79,12 +80,12 @@ def authenticate(username, password):
 def register_user(username, id, password):
     data = load_data(USERS_DATA)
     #사용자 정보 확인
-    for user in data:
-        if user["username"] == username:
+    for key in data.keys():
+        if data[key]["username"] == username:
             return False, "이미 사용 중인 사용자 이름입니다."
-        if user["id"] == id:
+        if data[key]["id"] == id:
             return False, "이미 사용 중인 아이디입니다."
-        if user["password"] == password:
+        if data[key]["password"] == password:
             return False, "이미 사용 중인 비밀번호입니다."
     
      # 사용자 정보 저장
@@ -93,8 +94,11 @@ def register_user(username, id, password):
         "id": id,
         "password": password  # 비밀번호 저장 전에 해싱 또는 암호화 필요
     }
-    data.append(new_user)
+    data[id] = new_user
     save_data(data, USERS_DATA)
     
     return True, "회원가입이 완료되었습니다."
-    
+
+def get_user(id):
+    users = load_data(USERS_DATA)
+    return users.get(id)

@@ -10,4 +10,4 @@ USERS_DATA = 'users.json'
 socketio = SocketIO(app)
 
 
-from app import login, gallery, homepage
+from app import login, gallery, homepage, mypage
