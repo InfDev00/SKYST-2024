@@ -13,7 +13,7 @@ def all_posts():
     })
 
 
-@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+@app.route('/api/post/<int:post_id>', methods=['GET', 'POST'])
 def post(post_id):
     post = get_post(post_id)
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def post(post_id):
     })
 
 
-@app.route('/create', methods=['POST'])
+@app.route('/api/create', methods=['POST'])
 def create():
     title = request.form['title']
     content = request.form['content']
