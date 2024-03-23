@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from app import POSTS_DATA, USERS_DATA
+from app import POSTS_DATA, USERS_DATA, BANDS_DATA
 
 
 # default function
@@ -12,8 +12,8 @@ def load_data(key):
     except FileNotFoundError:
         if key == POSTS_DATA:
             data = {"posts": [], "comments": []}
-        elif key == USERS_DATA:
-            data = {}
+        elif key == USERS_DATA or key == BANDS_DATA:
+            data = []
     return data
 
 
@@ -142,3 +142,40 @@ def add_friend(id, friend_id):
 
     user['friends'].append(friend)
     return True
+
+
+#band function
+def create_band(bandname, user_id, comment):
+    data = load_data(BANDS_DATA)
+    user = get_user(user_id)
+    lover = user['lover']
+
+    new_band = {
+        "band_id": len(data)+1,
+        "bandname": bandname,
+        "comment": comment,
+        "member": [user['id'], lover['id']]
+    }
+    data.append(new_band)
+    return new_band
+
+def get_bands():
+    data = load_data(BANDS_DATA)
+    return data
+
+def get_band(band_id):
+    data = load_data(BANDS_DATA)
+    for band in data:
+        if band['band_id']==band_id:
+            return band
+    return None
+
+def enter_band(band_id, user_id):
+    band = get_band(band_id)
+    user = get_user(user_id)
+    lover = user['lover']
+    
+    band["member"].append(user)
+    band["member"].append(lover)
+
+    return band

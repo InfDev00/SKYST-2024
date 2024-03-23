@@ -8,6 +8,7 @@ app.config['SECRET_KEY'] =  os.urandom(24)
 cors = CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 POSTS_DATA = "posts.json"
 USERS_DATA = 'users.json'
+BANDS_DATA = 'bands.json'
 
 
 from app import login, gallery, homepage, mypage
