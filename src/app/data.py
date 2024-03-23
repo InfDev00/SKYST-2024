@@ -4,6 +4,9 @@ from werkzeug.security import check_password_hash
 
 from app import POSTS_DATA, USERS_DATA
 
+
+
+
 # default function
 def load_data(key):
     try:
@@ -71,9 +74,10 @@ def get_comments(post_id):
 
 
 # login function
-def authenticate(username, password):
+def authenticate(id, password):
     users = load_data(USERS_DATA)
-    if username in users and check_password_hash(users[username], password):
+    username = get_user(id)['username']
+    if id in users: #and check_password_hash(users[id][username], password):
         return True
     return False
 
@@ -87,7 +91,7 @@ def register_user(username, id, password):
             return False, "이미 사용 중인 아이디입니다."
         if data[key]["password"] == password:
             return False, "이미 사용 중인 비밀번호입니다."
-    
+        
      # 사용자 정보 저장
     new_user = {
         "username": username,
